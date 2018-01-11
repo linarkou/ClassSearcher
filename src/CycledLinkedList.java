@@ -2,7 +2,7 @@ import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Iterator;
 
-public class CycledLinkedList<E> implements Collection<E>{
+public class CycledLinkedList<E extends Comparable> implements Collection<E>{
     private int size;
     private Node begin;
 
@@ -20,6 +20,10 @@ public class CycledLinkedList<E> implements Collection<E>{
 
         public Node prev() {
             return prev;
+        }
+
+        public E getValue() {
+            return value;
         }
     }
 
