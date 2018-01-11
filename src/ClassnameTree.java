@@ -52,7 +52,9 @@ public class ClassnameTree {
     }
 
     public TreeSet<ClassInfo> getLastModifiedClassesByPrefix(String prefix) {
-        TreeSet<ClassInfo> lastModified = getNodeByPrefix(prefix).getClasses().getLastModifiedClasses();
-        return lastModified;
+        Node nodeByPrefix = getNodeByPrefix(prefix);
+        if (nodeByPrefix == null)
+            return new TreeSet<>();
+        return nodeByPrefix.getClasses().getLastModifiedClasses();
     }
 }
