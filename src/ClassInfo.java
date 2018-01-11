@@ -24,7 +24,12 @@ public class ClassInfo implements Comparable {
     @Override
     public int compareTo(Object o) {
         if (o instanceof ClassInfo) {
-            return Long.compare(this.lastModified, ((ClassInfo)o).lastModified);
+            ClassInfo ci = ((ClassInfo)o);
+            int cmp = Long.compare(this.lastModified, ci.lastModified);
+            if (cmp == 0) {
+                cmp = this.className.compareTo(ci.className);
+            }
+            return cmp;
         }
         return 0;
     }
