@@ -1,9 +1,26 @@
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Random;
 
 public class Benchmark {
+
+    @Test
+    public void classInfoComparatorTest() {
+        ClassInfo ci1 = new ClassInfo("AAA", 100);
+        ClassInfo ci2 = new ClassInfo("AAA", 200);
+        ClassInfo ci3 = new ClassInfo("AAB", 100);
+        Assert.assertTrue(ci2.compareTo(ci1) > 0);
+        Assert.assertTrue(ci2.compareTo(ci3) > 0);
+        Assert.assertTrue(ci1.compareTo(ci3) > 0);
+    }
+
+    @Test
+    public void simpleTest() {
+        String[] names = new String[] {"AAA", "AAB", "AAC"};
+        long[] dates = new long[] {100, 200, 100};
+    }
 
     @Test
     public void hardTest() {
@@ -24,7 +41,7 @@ public class Benchmark {
         long refreshTime = System.currentTimeMillis() - start;
         System.out.println("r="+refreshTime);
         start = System.currentTimeMillis();
-        String toFind = new String(new char[25]).replace("\0", "A");
+        String toFind = new String(new char[24]).replace("\0", "A");
         String[] res1 = searcher.guess(toFind);
         String[] res2 = searcher.guess(toFind+"G");
         String[] res3 = searcher.guess(toFind+"N");

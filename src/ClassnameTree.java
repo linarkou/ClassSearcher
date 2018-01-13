@@ -9,23 +9,28 @@ public class ClassnameTree {
 
     public ClassnameTree(int k) {
         this.k = k;
-        root = new Node(k);
+        root = new Node();
     }
 
     public class Node {
-        KLargestArray classesArray;
+        TreeSet<ClassInfo> classesArray;
         Node[] child = new Node[128];
 
-        public Node(int k) {
-            classesArray = new KLargestArray(k);
+        public Node() {
+            classesArray = new TreeSet<>();
         }
 
         public void add(ClassInfo toAdd, int depth) {
-            classesArray.add(toAdd);
+            if (classesArray.size() < k)
+                classesArray.add(toAdd);
+            else if (classesArray.first().compareTo(toAdd) < 0) {
+                classesArray.pollFirst();
+                classesArray.add(toAdd);
+            }
             if (depth < toAdd.getClassName().length()) {
                 int childIndex = toAdd.getClassName().charAt(depth);
                 if (child[childIndex] == null)
-                    child[childIndex] = new Node(k);
+                    child[childIndex] = new Node();
                 child[childIndex].add(toAdd, depth + 1);
             }
         }
@@ -34,7 +39,7 @@ public class ClassnameTree {
             return child[c];
         }
 
-        public KLargestArray getClasses() {
+        public TreeSet<ClassInfo> getClasses() {
             return classesArray;
         }
     }
@@ -53,8 +58,6 @@ public class ClassnameTree {
 
     public TreeSet<ClassInfo> getLastModifiedClassesByPrefix(String prefix) {
         Node nodeByPrefix = getNodeByPrefix(prefix);
-        if (nodeByPrefix == null)
-            return new TreeSet<>();
-        return nodeByPrefix.getClasses().getLastModifiedClasses();
+        return nodeByPrefix == null ? new TreeSet<>() : nodeByPrefix.getClasses();
     }
 }

@@ -16,10 +16,7 @@ public class ClassInfo implements Comparable {
     }
 
     /**
-     * Comparing by last modified date.
-     *
-     * @param o
-     * @return
+     * Comparing by last modified date, if equlas - by className
      */
     @Override
     public int compareTo(Object o) {
@@ -27,7 +24,7 @@ public class ClassInfo implements Comparable {
             ClassInfo ci = ((ClassInfo)o);
             int cmp = Long.compare(this.lastModified, ci.lastModified);
             if (cmp == 0) {
-                cmp = this.className.compareTo(ci.className);
+                cmp = -this.className.compareTo(ci.className);
             }
             return cmp;
         }

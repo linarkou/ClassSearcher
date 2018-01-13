@@ -33,7 +33,7 @@ public class ISearcherImpl implements ISearcher {
         int i = 0;
         Iterator<ClassInfo> classInfoIterator = foundClasses.descendingIterator();
         while (classInfoIterator.hasNext()) {
-            resultedArray[i] = classInfoIterator.next().getClassName();
+            resultedArray[i++] = classInfoIterator.next().getClassName();
         }
         return resultedArray;
     }
